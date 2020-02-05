@@ -11,7 +11,41 @@ var scoreEl = document.getElementById("score")
 
 
 
-var secondsLeft = 6;
+var secondsLeft = 20;
+var questions = [
+    {
+        title: "Commonly used data types DO NOT include:",
+        choices: ["strings", "booleans", "alerts", "numbers"],
+        answer: "alerts"
+    },
+    {
+        title: "The condition in an if / else statement is enclosed within ____.",
+        choices: ["quotes", "curly brackets", "parentheses", "square brackets"],
+        answer: "parentheses"
+    },
+    {
+        title: "Arrays in JavaScript can be used to store ____.",
+        choices: [
+            "numbers and strings",
+            "other arrays",
+            "booleans",
+            "all of the above"
+        ],
+        answer: "all of the above"
+    },
+    {
+        title:
+            "String values must be enclosed within ____ when being assigned to variables.",
+        choices: ["commas", "curly brackets", "quotes", "parentheses"],
+        answer: "quotes"
+    },
+    {
+        title:
+            "A very useful tool used during development and debugging for printing content to the debugger is:",
+        choices: ["JavaScript", "terminal / bash", "for loops", "console.log"],
+        answer: "console.log"
+    }
+];
 
 gameAreaEl.addEventListener("click", function () {
     if (questionEl.textContent === "Coding quiz game!") {
@@ -21,12 +55,12 @@ gameAreaEl.addEventListener("click", function () {
 });
 
 function gametime() {
-    button1El.style.display = "inline";
-    button2El.style.display = "inline";
-    button3El.style.display = "inline";
+    button1El.removeAttribute("class");
+    button2El.removeAttribute("class");
+    button3El.removeAttribute("class");
 
     setTime();
-    question1()
+    question()
     function setTime() {
 
         var intervalId = setInterval(function () {
@@ -45,8 +79,8 @@ function gametime() {
 
 }
 
-function question1() {
-    questionEl.textContent = "what does JS stand for?";
+function question() {
+    questionEl.textContent = questions[0];
     button1El.textContent = "Java Sauce";
     button2El.textContent = "Javas";
     button3El.textContent = "Java Source";
@@ -96,7 +130,7 @@ function endOfGame() {
         console.log(score)
         localStorage.setItem("1st", score);
     })
-    
+
 }
 
 
