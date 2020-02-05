@@ -1,0 +1,51 @@
+header {
+    padding: 30px 30px;
+}
+#headerLeft {
+   
+    margin: 10px 20px;
+}
+#headerRight {
+    
+    margin: 10px 20px;
+}
+
+#gameArea, #scoreArea {
+    text-align: center;
+    margin: 70px  auto;
+    border:2px black solid;
+    padding: 10px;
+    width: 50%;
+
+}
+#question {
+    padding-bottom: 20px;
+}
+#gameArea button {
+    margin: 5px 10px;
+    padding: 0 10px;
+}
+
+#scoreArea {
+    display: none;
+}
+
+#button1, #button2, #button3 {
+    display: none;
+
+}
+
+
+
+
+#scoreCard {
+    text-align: center;
+    margin-top: 80px;
+    
+}
+
+#backToGame{
+    text-align: center;
+    font-size: 20px;
+    
+}
