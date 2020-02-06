@@ -8,8 +8,8 @@ var gameAreaEl = document.getElementById("gameArea")
 var scoreAreaEl = document.getElementById("scoreArea")
 var submitScoreBtn = document.getElementById("submitScore")
 var scoreEl = document.getElementById("score")
-var q = -1;
-var sinoEl = document.getElementById("sino");
+var q = 0;
+var correctness = document.getElementById('correctness')
 var questions = [
   {
     title: "Commonly used data types DO NOT include:",
@@ -52,10 +52,10 @@ var secondsLeft = 60;
 gameAreaEl.addEventListener("click", function () {
   if (questionEl.textContent === "Coding quiz game!") {
     gametime();
-    // question1();
+   
   }
 });
-
+var intervalId
 function gametime() {
   button1El.removeAttribute("class");
   button2El.removeAttribute("class");
@@ -65,14 +65,14 @@ function gametime() {
   question()
   function setTime() {
 
-    var intervalId = setInterval(function () {
+    intervalId = setInterval(function () {
       secondsLeft--;
       timerEl.textContent = secondsLeft;
       if (secondsLeft <= 10) {
         timerEl.setAttribute("style", "color:red")
       }
       if (secondsLeft <= 0) {
-        clearInterval(intervalId);
+
         endOfGame()
       }
     }, 1000);
@@ -81,92 +81,61 @@ function gametime() {
 
 }
 
-// wrong answers move to the next question
-// use function question to populate the questions
+
+
+
 
 function question() {
-  q++
-  sinoEl.textContent = "";
-  questionEl.textContent = questions[q].title
-  button1El.textContent = questions[q].choices[0]
-  button2El.textContent = questions[q].choices[1]
-  button3El.textContent = questions[q].choices[2]
-  button4El.textContent = questions[q].choices[3]
-  answer()
-}
+  console.log(q)
 
-function answer() {
-  gameAreaEl.addEventListener("click", function (event) {
-    var element = event.target;
-    console.log(element);
-    var quick = 3;
-    if (element.matches("button")) {
-      if (element.value === questions[q].answer) {
-        sinoEl.textContent = "Correct!!"
-        // question()
-      } else {
-        sinoEl.textContent = "wrong"
-        wrongAnswer()
-        // question()
-      }
+  questionEl.textContent = questions[q].title
+  for (let i = 0; i < questions[q].choices.length; i++) {
+    eval('button' + (i + 1) + 'El').textContent = questions[q].choices[i]
+  }
+  gameAreaEl.addEventListener("click", answer);
+}
+function answer(event) {
+  var element = event.target;
+  console.log(element);
+
+  if (element.matches("button")) {
+    if (element.textContent === questions[q].answer) {
+      correctness.style.color = 'green'
+      correctness.textContent = "Correct!!"
+
+    } else {
+      correctness.style.color = 'red'
+      correctness.textContent = "wrong"
+      wrongAnswer()
 
     }
-  });
-
+    setTimeout(() => {
+      correctness.innerHTML = ''
+    }, 3000)
+    q++
+    if (q === questions.length) endOfGame()
+    else question()
+  }
 }
-
-
-
-
-//     questionEl.textContent = "what does JS stand for?";
-//     button1El.textContent = "Java Sauce";
-//     button2El.textContent = "Javas";
-//     button3El.textContent = "Java Source";
-//     button4El.textContent = "Java Script";
-
-//     button4El.addEventListener("click", function (event) {
-//         event.preventDefault();
-//         button4El.setAttribute("style", "background: green");
-//         button4El.textContent = "Correct!!";
-//         question2();
-//     })
-//     button1El.addEventListener("click", function (event) {
-//         event.preventDefault();
-//         button1El.setAttribute("style", "background: red");
-//         button1El.textContent = "False!";
-//         wrongAnswer();
-//     })
-//     button2El.addEventListener("click", function (event) {
-//         event.preventDefault();
-//         button2El.setAttribute("style", "background: red");
-//         button2El.textContent = "False!";
-//         wrongAnswer();
-//     })
-//     button3El.addEventListener("click", function (event) {
-//         event.preventDefault();
-//         button3El.setAttribute("style", "background: red");
-//         button3El.textContent = "False!";
-//         wrongAnswer();
-//     })
-// }
-
-
 function wrongAnswer() {
-  console.log(secondsLeft);
-  (secondsLeft = secondsLeft - 5);
-  console.log(secondsLeft);
+  (secondsLeft = secondsLeft - 10);
 }
 
 function endOfGame() {
+  var allScores = JSON.parse(localStorage.getItem("highscores"))
+  if(!allScores) allScores =[]
+
+  clearInterval(intervalId);
   gameAreaEl.style.display = "none";
   scoreAreaEl.style.display = "block";
   scoreEl.textContent = secondsLeft
   submitScoreBtn.addEventListener("click", function (event) {
     event.preventDefault();
-
-    var score = (document.getElementById("playerName").value + "  " + secondsLeft)
-    console.log(score)
-    localStorage.setItem("1st", score);
+    var score = {score :secondsLeft, intials: document.getElementById("playerName").value.trim()};
+    console.log(allScores);
+    allScores.push(score);
+    localStorage.setItem("highscores", JSON.stringify(allScores));
+    window.location.assign("highscore.html")
   })
 
 }
