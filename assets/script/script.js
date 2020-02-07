@@ -8,7 +8,9 @@ var gameAreaEl = document.getElementById("gameArea")
 var scoreAreaEl = document.getElementById("scoreArea")
 var submitScoreBtn = document.getElementById("submitScore")
 var scoreEl = document.getElementById("score")
+var scorebtn = document.getElementById("highscore")
 var q = 0;
+
 var correctness = document.getElementById('correctness')
 var questions = [
   {
@@ -48,6 +50,9 @@ var questions = [
 
 
 var secondsLeft = 60;
+scorebtn.addEventListener("click", function(){
+  window.location.assign("highscore.html")
+});
 
 gameAreaEl.addEventListener("click", function () {
   if (questionEl.textContent === "Coding quiz game!") {
@@ -57,9 +62,13 @@ gameAreaEl.addEventListener("click", function () {
 });
 var intervalId
 function gametime() {
+  
   button1El.removeAttribute("class");
+  button1El.setAttribute("class","gamebtn");
   button2El.removeAttribute("class");
+  button2El.setAttribute("class","gamebtn");
   button3El.removeAttribute("class");
+  button3El.setAttribute("class","gamebtn");
 
   setTime();
   question()
@@ -86,7 +95,7 @@ function gametime() {
 
 
 function question() {
-  console.log(q)
+  
 
   questionEl.textContent = questions[q].title
   for (let i = 0; i < questions[q].choices.length; i++) {
@@ -96,7 +105,7 @@ function question() {
 }
 function answer(event) {
   var element = event.target;
-  console.log(element);
+  
 
   if (element.matches("button")) {
     if (element.textContent === questions[q].answer) {
@@ -131,11 +140,13 @@ function endOfGame() {
   scoreEl.textContent = secondsLeft
   submitScoreBtn.addEventListener("click", function (event) {
     event.preventDefault();
-    var score = {score :secondsLeft, intials: document.getElementById("playerName").value.trim()};
-    console.log(allScores);
+    
+    var score = {score :secondsLeft, intials:document.getElementById("playerName").value.trim() };
+    
     allScores.push(score);
     localStorage.setItem("highscores", JSON.stringify(allScores));
     window.location.assign("highscore.html")
+      
   })
 
 }

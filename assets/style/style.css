@@ -1,21 +1,40 @@
+body{
+    background: rgb(172, 171, 171);
+}
 header {
     padding: 30px 30px;
+    background-color: purple;
 }
 #headerLeft {
-   
+   font-size: x-large;
     margin: 10px 20px;
 }
 #headerRight {
     
     margin: 10px 20px;
 }
-
-#gameArea, #scoreArea {
+.score{
+    font-size: larger;
+    border-radius: 25px;
+    background-color: white;
+    color: purple;
+    
+}
+.time {
+    /* padding-left: 20px; */
+    font-size: x-large;
+    background-color: white;
+    border-radius: 25px;
     text-align: center;
-    margin: 70px  auto;
-    border:2px black solid;
-    padding: 10px;
+    color: purple;
+}
+#gameArea, #scoreArea, #scoreCard {
+    text-align: center;
+    margin: 100px  auto;
+    border:5px purple solid;
+    padding: 40px;
     width: 50%;
+    border-radius: 25px;
 
 }
 #question {
@@ -28,21 +47,30 @@ header {
 
 #scoreArea {
     display: none;  
-}
+}    
 
 .btn {
     display: none;
 
 }
-
-
-
-
-#scoreCard {
-    text-align: center;
-    margin-top: 80px;
-    
+.gamebtn {
+    background-color: purple;
+    color: aliceblue;
+    font-size: larger;
+    border-radius: 25px;
 }
+.gamebtn:hover {
+    padding: 10px 10px;
+}
+.gamebtn:focus {
+    outline: 0;
+}
+
+.nameInput{
+    border-radius: 25px;
+    padding-left: 15px;
+}
+
 
 #backToGame{
     text-align: center;
