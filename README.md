@@ -3,4 +3,4 @@ This is a 60 second quiz game asking 5 different coding related questions. At th
 
 [link to github page](https://daniel-droppa.github.io/quiz_game/)
 
-![screenshot of game:](./assets/images/Screenshot%20(15).png)
+![screenshot of game](./assets/images/Screenshot%20(15).png)
